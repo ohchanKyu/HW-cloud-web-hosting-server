@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS dk_cloud;
+CREATE DATABASE dk_cloud;

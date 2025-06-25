@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "kr.ac.dankook";
+option java_outer_classname = "VmActionProto";
+
+service VmActionService {
+  rpc HandleVmAction (VmActionRequest) returns (VmActionResponse);
+}
+
+enum VmActionType {
+  UNKNOWN = 0;
+  CREATE = 1;
+  DELETE = 2;
+}
+
+message VmActionRequest {
+  string vm_id = 1;
+  string name = 2;
+  VmActionType action = 3;
+}
+
+message VmActionResponse {
+  bool success = 1;
+  string message = 2;
+}
