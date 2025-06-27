@@ -1,23 +1,25 @@
 # Cloud Web Hosting Server
 
 ## HW 개요
-본 시스템은 사용자로부터의 요청을 처리하고, 가상 머신의 생성·삭제 및 상태 확인 등의 
-기능을 제공합니다. 전체 시스템은 클라이언트 요청 처리, 인증 및 권한 제어, 가상 머신 관리, 
-데이터 저장의 4가지 주요 컴포넌트로 구성되어 있습니다.
+본 시스템은 사용자로부터의 요청을 처리하고, 가상 머신의 생성·삭제 및 상태 확인 등의 기능을 제공합니다. <br>
+전체 시스템은 클라이언트 요청 처리, 인증 및 권한 제어, 가상 머신 관리, 데이터 저장의 <br>
+4가지 주요 컴포넌트로 구성되어 있습니다.
 
 ## 주요 시스템 구성요소
 ![image](https://github.com/user-attachments/assets/1ee14af5-c196-4abd-881c-70c0a587face)
-Spring Boot는 클라이언트의 VM 생성 또는 삭제 요청을 수신한 후, 사용자에게는 즉시 응답을 반환합니다.
-이후, Python gRPC 서버로 해당 요청을 Create / Delete gRPC Request형태로 전달합니다.
-Python 서버는 요청에 따라 다음 쉘 스크립트들을 실행합니다.
-- make_image.sh
-- create_vm.sh
-- setup_vm.sh
-- delete_vm.sh
+<br>
+Spring Boot는 클라이언트의 VM 생성 또는 삭제 요청을 수신한 후, 사용자에게는 즉시 응답을 반환합니다. <br>
+이후, Python gRPC 서버로 해당 요청을 Create / Delete gRPC Request형태로 전달합니다. <br>
+Python 서버는 요청에 따라 다음 쉘 스크립트들을 실행합니다. <br>
+- **make_image.sh**
+- **create_vm.sh**
+- **setup_vm.sh**
+- **delete_vm.sh**
+- <br>
 처리 완료 후, gRPC를 통해 결과를 Spring Boot에 전달합니다.
 
-- VM 정보 요청 (GET /host)
-Spring Boot에서 직접 쉘 스크립트 check_vm.sh를 실행하여 현재 VM 상태를 확인합니다.
+**VM 정보 요청 (GET /host)**
+Spring Boot에서 직접 쉘 스크립트 check_vm.sh를 실행하여 현재 VM 상태를 확인합니다. <br>
 스크립트 실행 결과를 사용자에게 응답으로 반환합니다.
 
 ## **System Architecture**
@@ -113,8 +115,8 @@ cd ./cloud-web-hosting-server
 #### 필요한 패키지 추가 설치 및 설정 스크립트 실행
 ```Bash
 cd ./scripts
- chmod +x *.sh
- ./initial_setting.sh
+chmod +x *.sh
+./initial_setting.sh
 ```
 ![image](https://github.com/user-attachments/assets/21c44a74-8fdc-4ced-a2d7-88fa9ab29dc6)
 
@@ -170,6 +172,7 @@ source ./cloud-web-hosting-server/scripts/initial_table.sql;
 show databases;
 exit
 ```
+<br>
 
 ### Spring boot 어플리케이션 실행
 ```Bash
@@ -180,6 +183,8 @@ chmod +x gradlew
 cd ./build/libs
 java -jar CloudApiGateway-0.0.1-SNAPSHOT.jar
 ```
+<br>
+
 ### Python 어플리케이션 실행
 ```Bash
 cd ~/cloud-web-hosting-server/vm-controller
@@ -242,6 +247,7 @@ Status: 400 - 가입 아이디가 중복되는 경우
   "message": "This is duplicated Id."
 }
 ```
+<br>
 
 #### **POST** `/login`
 - **Description**: 사용자 로그인
@@ -290,6 +296,7 @@ Status: 401 - 입력한 사용자 아이디에 해당하는 인테티는 존재�
   "message": "There is no member matching the provided username and password."
 }
 ```
+<br>
 
 #### **POST** `/host`
 - **Description**: 사용자 VM 생성
@@ -297,7 +304,7 @@ Status: 401 - 입력한 사용자 아이디에 해당하는 인테티는 존재�
 - **Curl**
 ```Bash
 curl -X POST http://localhost/host \
--H "Authorization: Bearer <ACCESS_TOKEN>" | jq
+-H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 - **Success Response**
 ```JS
@@ -328,13 +335,15 @@ Status: 409 - 사용자가 2개 이상의 호스팅을 요구 ( 사용자당 1�
 }
 ```
 
+<br>
+
 #### **GET** `/host`
 - **Description**: 사용자 VM 조회
 - **Authentication**: Required.
 - **Curl**
 ```Bash
 curl -X GET http://localhost/host \
--H "Authorization: Bearer <ACCESS_TOKEN>" | jq
+-H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 - **Success Response**
 ```JS
@@ -389,6 +398,7 @@ Status: 404 - 사용자가 생성한 VM이 존재하지 않는 경우
   "message": "Not found your vm instance." 
 }
 ```
+<br>
 
 #### **DELETE** `/host`
 - **Description**: 사용자 VM 삭제
@@ -396,7 +406,7 @@ Status: 404 - 사용자가 생성한 VM이 존재하지 않는 경우
 - **Curl**
 ```Bash
 curl -X DELETE http://localhost/host \
--H "Authorization: Bearer <ACCESS_TOKEN>" | jq
+-H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 - **Success Response**
 ```JS
@@ -431,7 +441,9 @@ Status: 404 - 사용자가 생성한 VM이 존재하지 않는 경우
 ### 웹 브라우저 접속
 - 접속 테스트에 사용된 사설 IP : 10.0.10.175
 - 실제 VM의 공인 IP : 220.149.241.197
-아래는 웹 브라우저를 통해 사설 IP로 접속한 화면입니다. 
+<br>
+
+아래는 웹 브라우저를 통해 사설 IP로 접속한 화면입니다. <br>
 이는 사설 네트워크 상에서 VM이 정상적으로 실행되고 있으며, 외부 요청에 응답 가능한 상태임을 의미합니다.
 ```Bash
 http://10.0.10.175/5DQc7CtQQm-G-7n5EjBadg/
@@ -439,30 +451,38 @@ http://10.0.10.175/5DQc7CtQQm-G-7n5EjBadg/
 ![image](https://github.com/user-attachments/assets/ae536279-0a8f-4c96-a354-fe991b310692)
 ※ Nginx 설정이 모두 완료될 때까지 시간이 걸릴 수 있습니다.
 
+<br>
+
 ### SSH를 이용한 쉘 접속
 ```Bash
 ssh ubuntu@10.0.10.175 -p 24314
 ```
-![image](https://github.com/user-attachments/assets/3818cd8b-da57-4ad3-9707-b6dd8584ad09)
+![image](https://github.com/user-attachments/assets/bb2e712b-3a04-4869-bbe5-c6dc4696b6e6)
+
 ```Bash
 계정 이름 : Ubuntu
 계정 비밀번호 : Ubuntu
 ```
-![image](https://github.com/user-attachments/assets/2d2c2ae6-611e-4efc-b9d2-3af294037739)
+![image](https://github.com/user-attachments/assets/49891bc6-91b4-42ac-bec7-c0f1bdf6cb6f)
+
 
 #### 생성된 VM에서 Nginx 설정 확인
 ```Bash
 nginx -v
 sudo systemctl status nginx
 ```
-![image](https://github.com/user-attachments/assets/00728697-9dcb-40ef-8146-a9001094d8d6)
+![image](https://github.com/user-attachments/assets/0a0dca37-236e-421d-ae24-6fb25b861626)
+
 ```Bash
 cd /etc/nginx/sites-available
 cat default
 ```
-![image](https://github.com/user-attachments/assets/17ab70eb-601b-4a54-9379-8bdfb77636f9)
+![image](https://github.com/user-attachments/assets/3850a9c3-e32a-4b9c-99ee-dece2f191c15)
+
 ```Bash
 cat /var/www/html/<생성된 VM ID>/index.html
 ```
-![image](https://github.com/user-attachments/assets/fb53b600-f703-4a5b-965d-fdca95545db9)
+![image](https://github.com/user-attachments/assets/d76e42d9-e242-4b8f-95a5-bc8f1de58453)
+![image](https://github.com/user-attachments/assets/e536660c-9f03-4614-a5fc-9f92a527130e)
+
 
