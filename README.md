@@ -111,8 +111,8 @@ sudo apt update
 ```
 #### 프로젝트 clone 및 해당 프로젝트로 이동
 ```Bash
-git clone https://github.com/ohchanKyu/cloud-web-hosting-server.git
-cd ./cloud-web-hosting-server
+git clone https://github.com/ohchanKyu/HW-cloud-web-hosting-server.git
+cd ./HW-cloud-web-hosting-server
 ```
 #### 필요한 패키지 추가 설치 및 설정 스크립트 실행
 ```Bash
@@ -170,7 +170,7 @@ sudo mysql -u root -p
 ```
 #### MySQL Script 파일 적용
 ```Bash
-source ./cloud-web-hosting-server/scripts/initial_table.sql;
+source ./HW-cloud-web-hosting-server/scripts/initial_table.sql;
 show databases;
 exit
 ```
@@ -178,7 +178,7 @@ exit
 
 ### Spring boot 어플리케이션 실행
 ```Bash
-cd ~/cloud-web-hosting-server/CloudApiGateway
+cd ~/HW-cloud-web-hosting-server/CloudApiGateway
 chmod +x gradlew
 ./gradlew generateproto
 ./gradlew build
@@ -189,7 +189,7 @@ java -jar CloudApiGateway-0.0.1-SNAPSHOT.jar
 
 ### Python 어플리케이션 실행
 ```Bash
-cd ~/cloud-web-hosting-server/vm-controller
+cd ~/HW-cloud-web-hosting-server/vm-controller
 source venv/bin/activate
 ls
 python3 app.py
