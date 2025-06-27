@@ -437,6 +437,7 @@ Status: 404 - 사용자가 생성한 VM이 존재하지 않는 경우
   "message": "Not found your vm instance." 
 }
 ```
+<br>
 
 ## 사용자의 VM 생성 확인을 위한 웹 브라우저 접속 및 쉘 접속 확인
 
