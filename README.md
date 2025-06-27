@@ -15,10 +15,11 @@ Python 서버는 요청에 따라 다음 쉘 스크립트들을 실행합니다.
 - **create_vm.sh**
 - **setup_vm.sh**
 - **delete_vm.sh**
-- <br>
+<br>
 처리 완료 후, gRPC를 통해 결과를 Spring Boot에 전달합니다.
 
-**VM 정보 요청 (GET /host)**
+**VM 정보 요청 (GET /host)** 
+<br>
 Spring Boot에서 직접 쉘 스크립트 check_vm.sh를 실행하여 현재 VM 상태를 확인합니다. <br>
 스크립트 실행 결과를 사용자에게 응답으로 반환합니다.
 
@@ -214,9 +215,9 @@ curl -X POST http://localhost/register \
 ```JS
 Status: 201
 {
-    "success": true,
-    "statusCode": 201,
-    "message": "Registration was successful."
+   "success": true,
+   "statusCode": 201,
+   "message": "Registration was successful."
 }
 ```
 - **Error Response**
@@ -415,7 +416,7 @@ Status: 200
  "success": true,
  "statusCode": 201,
  "message": “Your VM has been successfully deleted. To create a new VM, please send a POST request to /host.”
- }
+}
 ```
 - **Error Response**
 ```JS
