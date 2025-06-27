@@ -19,7 +19,6 @@ Python 서버는 요청에 따라 다음 쉘 스크립트들을 실행합니다.
 처리 완료 후, gRPC를 통해 결과를 Spring Boot에 전달합니다.
 <br>
 **VM 정보 요청 (GET /host)** 
-
 Spring Boot에서 직접 쉘 스크립트 check_vm.sh를 실행하여 현재 VM 상태를 확인합니다. <br>
 스크립트 실행 결과를 사용자에게 응답으로 반환합니다.
 
